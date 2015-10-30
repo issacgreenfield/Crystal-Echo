@@ -12,6 +12,7 @@ class ViewController: UIViewController {
 
     @IBAction func buttonPressed(sender: UIButton) {
         print("good job, ikies!")
+        print(sender.titleLabel?.text)
     }
 
     
