@@ -36,7 +36,6 @@
 		C18491231BE3FBB6004C89AB /* GameBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18491001BE3FBB6004C89AB /* GameBrain.swift */; settings = {ASSET_TAGS = (); }; };
 		C18491241BE3FBB6004C89AB /* homescreenbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = C18491011BE3FBB6004C89AB /* homescreenbutton.png */; settings = {ASSET_TAGS = (); }; };
 		C18491251BE3FBB6004C89AB /* MusicBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18491021BE3FBB6004C89AB /* MusicBrain.swift */; settings = {ASSET_TAGS = (); }; };
-		C18491261BE3FBB6004C89AB /* SoundBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18491031BE3FBB6004C89AB /* SoundBrain.swift */; settings = {ASSET_TAGS = (); }; };
 		C184912C1BE3FBCD004C89AB /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = C18491271BE3FBCD004C89AB /* 1.png */; settings = {ASSET_TAGS = (); }; };
 		C184912D1BE3FBCD004C89AB /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = C18491281BE3FBCD004C89AB /* 2.png */; settings = {ASSET_TAGS = (); }; };
 		C184912E1BE3FBCD004C89AB /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = C18491291BE3FBCD004C89AB /* 3.png */; settings = {ASSET_TAGS = (); }; };
@@ -97,7 +96,6 @@
 		C18491001BE3FBB6004C89AB /* GameBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameBrain.swift; path = "../../Crystaline Mountain/Crystaline Mountain/GameBrain.swift"; sourceTree = "<group>"; };
 		C18491011BE3FBB6004C89AB /* homescreenbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = homescreenbutton.png; path = "../../Crystaline Mountain/Crystaline Mountain/homescreenbutton.png"; sourceTree = "<group>"; };
 		C18491021BE3FBB6004C89AB /* MusicBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MusicBrain.swift; path = "../../Crystaline Mountain/Crystaline Mountain/MusicBrain.swift"; sourceTree = "<group>"; };
-		C18491031BE3FBB6004C89AB /* SoundBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundBrain.swift; path = "../../Crystaline Mountain/Crystaline Mountain/SoundBrain.swift"; sourceTree = "<group>"; };
 		C18491271BE3FBCD004C89AB /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 1.png; path = "../../../../../Desktop/piano files/testShards/1.png"; sourceTree = "<group>"; };
 		C18491281BE3FBCD004C89AB /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2.png; path = "../../../../../Desktop/piano files/testShards/2.png"; sourceTree = "<group>"; };
 		C18491291BE3FBCD004C89AB /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 3.png; path = "../../../../../Desktop/piano files/testShards/3.png"; sourceTree = "<group>"; };
@@ -204,7 +202,6 @@
 			children = (
 				C18491001BE3FBB6004C89AB /* GameBrain.swift */,
 				C18491021BE3FBB6004C89AB /* MusicBrain.swift */,
-				C18491031BE3FBB6004C89AB /* SoundBrain.swift */,
 				C18490AE1BE3FAF6004C89AB /* AppDelegate.swift */,
 			);
 			name = Model;
@@ -407,7 +404,6 @@
 				C18491251BE3FBB6004C89AB /* MusicBrain.swift in Sources */,
 				C18490B11BE3FAF6004C89AB /* ViewController.swift in Sources */,
 				C18491231BE3FBB6004C89AB /* GameBrain.swift in Sources */,
-				C18491261BE3FBB6004C89AB /* SoundBrain.swift in Sources */,
 				C18490AF1BE3FAF6004C89AB /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -635,6 +631,7 @@
 				C18490D51BE3FAF6004C89AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C18490D61BE3FAF6004C89AB /* Build configuration list for PBXNativeTarget "Crystal EchoTests" */ = {
 			isa = XCConfigurationList;
@@ -643,6 +640,7 @@
 				C18490D81BE3FAF6004C89AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C18490D91BE3FAF6004C89AB /* Build configuration list for PBXNativeTarget "Crystal EchoUITests" */ = {
 			isa = XCConfigurationList;
@@ -651,6 +649,7 @@
 				C18490DB1BE3FAF6004C89AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

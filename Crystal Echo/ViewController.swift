@@ -7,12 +7,29 @@
 //
 
 import UIKit
+import AVFoundation
+
 
 class ViewController: UIViewController {
 
     @IBAction func buttonPressed(sender: UIButton) {
         print("good job, ikies!")
-        print(sender.titleLabel?.text)
+        print((sender.titleLabel?.text)!)
+        playButton((sender.titleLabel?.text)!)
+    }
+
+    private func playButton(button: String)
+    {
+        self.playSound(Int(button)!)
+    }
+    
+    private func playSound(buttonNumber: Int)
+    {
+        let soundURL = NSBundle.mainBundle().URLForResource("\(buttonNumber)", withExtension: "wav")
+        var mySound: SystemSoundID = 0
+        AudioServicesCreateSystemSoundID(soundURL!, &mySound)
+        AudioServicesPlaySystemSound(mySound);
+        
     }
 
     
