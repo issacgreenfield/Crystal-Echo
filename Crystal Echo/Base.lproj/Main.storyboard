@@ -71,6 +71,16 @@
                                     <action selector="buttonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="u3X-v6-vwX"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k6V-8t-LMV">
+                                <rect key="frame" x="271" y="486" width="58" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Example">
+                                    <color key="titleShadowColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
+                                </state>
+                                <connections>
+                                    <action selector="examplePattern" destination="BYZ-38-t0r" eventType="touchUpInside" id="wGZ-1y-tce"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -83,17 +93,27 @@
                             <constraint firstAttribute="trailing" secondItem="sbd-2C-JV4" secondAttribute="trailing" id="OuO-U4-XJG"/>
                             <constraint firstItem="oai-Rm-Iqf" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="50" id="Q45-Wn-A3p"/>
                             <constraint firstAttribute="trailing" secondItem="RpU-YX-B57" secondAttribute="trailing" constant="50" id="R6E-zt-anS"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="k6V-8t-LMV" secondAttribute="bottom" constant="84" id="RVD-yj-yWC"/>
                             <constraint firstItem="sbd-2C-JV4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="SSd-8n-f8A"/>
                             <constraint firstAttribute="trailing" secondItem="v8T-Mr-wuP" secondAttribute="trailing" constant="50" id="VTC-n7-c9V"/>
                             <constraint firstItem="IdY-du-fFe" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="kI8-c6-iqY"/>
+                            <constraint firstItem="k6V-8t-LMV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="kOn-YW-U2M"/>
                             <constraint firstItem="RpU-YX-B57" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="50" id="tSC-eJ-tKO"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="0b5-tB-b3p" secondAttribute="bottom" constant="50" id="taR-mJ-0p4"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="v8T-Mr-wuP" secondAttribute="bottom" constant="50" id="xy3-C1-gHH"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="button1" destination="oai-Rm-Iqf" id="j7Y-m8-fra"/>
+                        <outlet property="button2" destination="RpU-YX-B57" id="f8b-3F-LSK"/>
+                        <outlet property="button3" destination="IdY-du-fFe" id="WLc-mm-VUr"/>
+                        <outlet property="button4" destination="0b5-tB-b3p" id="TJB-za-RNN"/>
+                        <outlet property="button5" destination="v8T-Mr-wuP" id="R7q-I2-uXt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="271" y="334"/>
         </scene>
     </scenes>
     <resources>
