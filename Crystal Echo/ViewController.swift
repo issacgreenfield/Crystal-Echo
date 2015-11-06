@@ -71,24 +71,27 @@ class ViewController: UIViewController {
     }
 
     @IBAction func examplePattern() {
-
-
-        playSound(1)
-        playSound(2)
+        let gameTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "runTimedCode", userInfo: nil, repeats: true)
         
-//        gameTimer.invalidate()
+        
+        
     }
+    
     func runTimedCode() {
-        if self.counter < 10
+        if self.counter <= 5
         {
-            playSound(1)
+            playSound(counter)
             self.counter++
+        } else
+        {
+            //donothing
+//            examplePattern()
         }
     }
     
     override func viewDidLoad() {
-        var gameTimer: NSTimer!
-        gameTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "runTimedCode", userInfo: nil, repeats: true)
+//        var gameTimer: NSTimer!
+//        gameTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "runTimedCode", userInfo: nil, repeats: true)
         
         
         super.viewDidLoad()
