@@ -101,6 +101,7 @@
 		C18491291BE3FBCD004C89AB /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 3.png; path = "../../../../../Desktop/piano files/testShards/3.png"; sourceTree = "<group>"; };
 		C184912A1BE3FBCD004C89AB /* 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 4.png; path = "../../../../../Desktop/piano files/testShards/4.png"; sourceTree = "<group>"; };
 		C184912B1BE3FBCD004C89AB /* 5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 5.png; path = "../../../../../Desktop/piano files/testShards/5.png"; sourceTree = "<group>"; };
+		C1D632B91BEE65F60011A1B9 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = MyPlayground.playground; path = "Crystal Echo/MyPlayground.playground"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +132,7 @@
 		C18490A21BE3FAF6004C89AB = {
 			isa = PBXGroup;
 			children = (
+				C1D632B91BEE65F60011A1B9 /* MyPlayground.playground */,
 				C18490AD1BE3FAF6004C89AB /* Crystal Echo */,
 				C18490C21BE3FAF6004C89AB /* Crystal EchoTests */,
 				C18490CD1BE3FAF6004C89AB /* Crystal EchoUITests */,

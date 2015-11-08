@@ -18,45 +18,21 @@ class ViewController: UIViewController {
     @IBOutlet weak var button4: UIButton!
     @IBOutlet weak var button5: UIButton!
     
-    private var counter = 1
+    private var counter: Int = 1
+    private var playState: Bool = false
 
     @IBAction func buttonPressed(sender: UIButton) {
         print("good job, ikies!")
         print((sender.titleLabel?.text)!)
         self.playSound(Int((sender.titleLabel?.text)!)!)
-
     }
-
+    
     private func playButton(button: String)
     {
         let timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("didTimeout"), userInfo: nil, repeats: false)
         self.playSound(Int(button)!)
         
-//        switch button
-//        {
-//        case "1":
-//            button1 .selected = true
-//            timer.timeInterval
-//            button1 .selected = false
-//        case "2":
-//            button2 .selected = true
-//            timer.timeInterval
-//            button2 .selected = false
-//        case "3":
-//            button3 .selected = true
-//            timer.timeInterval
-//            button3 .selected = false
-//        case "4":
-//            button4 .selected = true
-//            timer.timeInterval
-//            button4 .selected = false
-//        case "5":
-//            button5 .selected = true
-//            timer.timeInterval
-//            button5 .selected = false
-//        default:
-//            print("oops")
-//        }
+
         
         timer.invalidate()
     }
@@ -70,28 +46,32 @@ class ViewController: UIViewController {
         
     }
 
-    @IBAction func examplePattern() {
-        let gameTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "runTimedCode", userInfo: nil, repeats: true)
-        
-        
-        
-    }
+    
     
     func runTimedCode() {
-        if self.counter <= 5
+        
+        if self.playState == true
         {
-            playSound(counter)
-            self.counter++
-        } else
+            if self.counter <= 5
+            {
+                playSound(counter)
+                self.counter++
+            } else
+            {
+                self.counter = 1
+            }
+        }else
         {
-            //donothing
-//            examplePattern()
+            print(self.counter)
         }
-    }
+        
+        
+        }
     
     override func viewDidLoad() {
 //        var gameTimer: NSTimer!
-//        gameTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "runTimedCode", userInfo: nil, repeats: true)
+
+        let gameTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "runTimedCode", userInfo: nil, repeats: true)
         
         
         super.viewDidLoad()
@@ -104,5 +84,33 @@ class ViewController: UIViewController {
     }
 
 
+    
+    //        switch button
+    //        {
+    //        case "1":
+    //            button1 .selected = true
+    //            timer.timeInterval
+    //            button1 .selected = false
+    //        case "2":
+    //            button2 .selected = true
+    //            timer.timeInterval
+    //            button2 .selected = false
+    //        case "3":
+    //            button3 .selected = true
+    //            timer.timeInterval
+    //            button3 .selected = false
+    //        case "4":
+    //            button4 .selected = true
+    //            timer.timeInterval
+    //            button4 .selected = false
+    //        case "5":
+    //            button5 .selected = true
+    //            timer.timeInterval
+    //            button5 .selected = false
+    //        default:
+    //            print("oops")
+    //        }
+    
+    
 }
 
