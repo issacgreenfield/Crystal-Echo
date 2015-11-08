@@ -21,12 +21,13 @@ class ViewController: UIViewController {
     private var counter: Int = 1
     private var playState: Bool = false
     private var shardPattern: [Int] = []
+    private var startNewGame: Bool = true
+
 
     @IBAction func buttonPressed(sender: UIButton) {
-        print("good job, ikies!")
-        print((sender.titleLabel?.text)!)
-//        self.playSound(Int((sender.titleLabel?.text)!)!)
+        self.view.userInteractionEnabled = false
         self.playButton(Int((sender.titleLabel?.text)!)!)
+        self.view.userInteractionEnabled = true
     }
     
     private func playButton(buttonNumber: Int)
@@ -52,32 +53,50 @@ class ViewController: UIViewController {
     
     func runTimedCode() {
         
-        if self.playState == true
+        if self.startNewGame == true
         {
-            if self.counter <= self.shardPattern.count
-            {
-                playSound(self.shardPattern[self.counter - 1])
-                self.counter++
-            } else
-            {
-                self.counter = 1
-                self.playState = false
-            }
+            self.startMessage()
+            self.startNewGame = false
+            self.playState = true
         }else
         {
-            print(self.counter)
+            if self.playState == true
+            {
+                self.view.userInteractionEnabled = false
+                if self.counter <= self.shardPattern.count
+                {
+                    playSound(self.shardPattern[self.counter - 1])
+                    self.counter++
+                } else
+                {
+                    self.counter = 1
+                    self.playState = false
+                    self.view.userInteractionEnabled = true
+                }
+            }else   //While the timer is not being used
+            {
+                //            print(self.counter)
+            }
         }
     }
     
+    private func startMessage()
+    {
+        let alertController = UIAlertController(title: "Welcome To", message:
+            "Crystal Echo", preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Start!", style: UIAlertActionStyle.Default,handler: nil))
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
-//        var gameTimer: NSTimer!
 
         let gameTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "runTimedCode", userInfo: nil, repeats: true)
-        
+       
+        self.view.userInteractionEnabled = false
         
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
+        
+        }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
