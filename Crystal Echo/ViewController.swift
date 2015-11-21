@@ -22,12 +22,18 @@ class ViewController: UIViewController {
     private var playState: Bool = false
     private var shardPattern: [Int] = []
     private var startNewGame: Bool = true
+    private let newGame = GameBrain.init()
+    private let play = MusicBrain.init()
 
-
-    @IBAction func buttonPressed(sender: UIButton) {
-        self.view.userInteractionEnabled = false
-        self.playButton(Int((sender.titleLabel?.text)!)!)
-        self.view.userInteractionEnabled = true
+    @IBAction func buttonPressed(sender: UIButton)
+    {
+        
+        self.play.playShard(Int((sender.titleLabel?.text)!)!)
+        
+        
+//        self.view.userInteractionEnabled = false
+//        self.playButton(Int((sender.titleLabel?.text)!)!)
+//        self.view.userInteractionEnabled = true
     }
     
     private func playButton(buttonNumber: Int)
