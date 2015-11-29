@@ -18,10 +18,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var button4: UIButton!
     @IBOutlet weak var button5: UIButton!
     
-    private var shardPlaceCounter: Int = 1
-    private var playState: Bool = false
+    private var shardPlaceCounter: Int = 0
+    private var userPlayState: Bool = false
     private var shardPattern: [Int] = []
-    private var wait: Bool = true
+    private var waitForUser: Bool = true
     private let newGame = GameBrain.init()
     private let play = MusicBrain.init()
     
@@ -29,15 +29,23 @@ class ViewController: UIViewController {
     {
         self.view.userInteractionEnabled = false
         self.play.playShard(Int((sender.titleLabel?.text)!)!)
-        if (Int((sender.titleLabel?.text)!)! != shardPlaceCounter)
+        if (Int((sender.titleLabel?.text)!)! != self.shardPattern[self.shardPlaceCounter])
         {
+            self.waitForUser = false
             self.gameOverMessage()
-            self.wait = true
         }
         else //you played the right shard
         {
             shardPlaceCounter++
-            self.view.userInteractionEnabled = true     //this is bad!!!!
+            if self.shardPlaceCounter == self.shardPattern.count
+            {
+                self.userPlayState = false
+                self.waitForUser = false
+                self.shardPlaceCounter = 0
+            }else
+            {
+                self.view.userInteractionEnabled = true
+            }
         }
     }
     
@@ -45,7 +53,7 @@ class ViewController: UIViewController {
     {
         self.playSound(buttonNumber)
         self.shardPattern.append(buttonNumber)
-        self.playState = true
+        self.userPlayState = true
     }
     
     private func playSound(buttonNumber: Int)
@@ -57,15 +65,18 @@ class ViewController: UIViewController {
         
     }
     
-    private func setPattern(shardPattern: [Int])
-    {
-        self.shardPattern = shardPattern
-    }
+//    private func setPattern(shardPattern: [Int])
+//    {
+//        self.shardPattern = shardPattern
+//    }
     
     func runTimedCode() {
         if self.shardPlaceCounter == self.shardPattern.count
         {
-            self.wait = true
+            self.waitForUser = true
+            self.userPlayState = true
+            self.view.userInteractionEnabled = true
+            self.shardPlaceCounter = 0
         }else if self.shardPlaceCounter > self.shardPattern.count
         {
             //error handling here, Fix-it
@@ -73,26 +84,27 @@ class ViewController: UIViewController {
             self.startMessage()
         }
         
-        if self.wait == true
+        if self.waitForUser == true
         {
             //do nothing
         }else
         {
-            if self.playState == true
+            if self.userPlayState == true
             {
                 //Just listen for user interactions
             }else
             {
                 if self.shardPlaceCounter < self.shardPattern.count
                 {
-                    playSound(self.shardPattern[self.shardPlaceCounter - 1])
+                    playSound(self.shardPattern[self.shardPlaceCounter])
                     self.shardPlaceCounter++
-                } else
-                {
-                    self.shardPlaceCounter = 1
-                    self.playState = true
-                    self.view.userInteractionEnabled = true
                 }
+//                 else
+//                {
+//                    self.shardPlaceCounter = 0
+//                    self.playState = true
+//                    self.view.userInteractionEnabled = true
+//                }
             }
         }
     }
@@ -109,6 +121,7 @@ class ViewController: UIViewController {
             "Crystal Echo", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "Start!", style: UIAlertActionStyle.Default,handler: {
             (action: UIAlertAction!) in
+            self.waitForUser = false
             let gameTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "runTimedCode", userInfo: nil, repeats: true)
             }
             ))
@@ -118,7 +131,7 @@ class ViewController: UIViewController {
     
     private func gameOverMessage()
     {
-        self.playState = false
+        self.userPlayState = false
         let alertController = UIAlertController(title: "Darn!", message:
             "That Ain't Right", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "OK, my bad...", style: UIAlertActionStyle.Default,handler: {
