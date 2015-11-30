@@ -12,19 +12,32 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
+    //UI Elements
     @IBOutlet weak var button1: UIButton!
     @IBOutlet weak var button2: UIButton!
     @IBOutlet weak var button3: UIButton!
     @IBOutlet weak var button4: UIButton!
     @IBOutlet weak var button5: UIButton!
     
-    private var shardPlaceCounter: Int = 0
-    private var userPlayState: Bool = false
-    private var shardPattern: [Int] = []
-    private var waitForUser: Bool = true
+    //Model Objects
     private let newGame = GameBrain.init()
     private let play = MusicBrain.init()
     
+    //GameState Setting Global Variables
+    private var userPlayState: Bool = false
+    private var waitForUser: Bool = true
+    
+    //Temp Global Variables to be phased out (GV Bad!!)
+    private var shardPattern: [Int] = []
+    private var shardPlaceCounter: Int = 0   //move over to GameBrain
+
+    
+    
+
+    
+    
+    
+    //User Interaction Functions
     @IBAction func buttonPressed(sender: UIButton)
     {
         self.view.userInteractionEnabled = false
@@ -49,6 +62,7 @@ class ViewController: UIViewController {
         }
     }
     
+    //Automatic Functions
     private func playButton(buttonNumber: Int)
     {
         self.playSound(buttonNumber)
@@ -64,12 +78,7 @@ class ViewController: UIViewController {
         AudioServicesPlaySystemSound(mySound);
         
     }
-    
-//    private func setPattern(shardPattern: [Int])
-//    {
-//        self.shardPattern = shardPattern
-//    }
-    
+
     func runTimedCode() {
         if self.shardPlaceCounter == self.shardPattern.count
         {
@@ -99,24 +108,55 @@ class ViewController: UIViewController {
                     playSound(self.shardPattern[self.shardPlaceCounter])
                     self.shardPlaceCounter++
                 }
-//                 else
-//                {
-//                    self.shardPlaceCounter = 0
-//                    self.playState = true
-//                    self.view.userInteractionEnabled = true
-//                }
+                //                 else
+                //                {
+                //                    self.shardPlaceCounter = 0
+                //                    self.playState = true
+                //                    self.view.userInteractionEnabled = true
+                //                }
             }
         }
     }
-    
-    private func startMessage()
-    {
 
-        //handle reseting of data
+
+    
+    //GameState Setting Functions
+    private func gamePlaysPatternSettings()
+    {
+        
+    }
+    
+    private func userPlaysBackPatternSettings()
+    {
+        
+    }
+    
+    private func startNewGameSettings()
+    {
+        
+    }
+    
+    private func endCurrentGameSettings()
+    {
+        
+    }
+    
+    private func resetGameBrainPatternSettings()  //to be moved to gamebrain
+    {
         self.shardPattern = []
         self.newGame.resetPattern()
         self.shardPattern = self.newGame.getDynamicPattern()
-
+    }
+    
+    
+    //Game Message Functions
+    private func startMessage()
+    {
+        
+        //handle reseting of data
+        self.resetGameBrainPatternSettings()
+        
+        
         let alertController = UIAlertController(title: "Welcome To", message:
             "Crystal Echo", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "Start!", style: UIAlertActionStyle.Default,handler: {
@@ -141,12 +181,12 @@ class ViewController: UIViewController {
             ))
         self.presentViewController(alertController, animated: true, completion: nil)
     }
+
     
-    
-    
+    //Override Functions
     override func viewDidLoad() {
         
-//        let gameTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "runTimedCode", userInfo: nil, repeats: true)
+        //        let gameTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "runTimedCode", userInfo: nil, repeats: true)
         
         self.view.userInteractionEnabled = false
         super.viewDidLoad()
@@ -160,5 +200,17 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
+    
+    
+    
+    
+    
+    
+    
+    //    private func setPattern(shardPattern: [Int])
+//    {
+//        self.shardPattern = shardPattern
+//    }
 }
 
