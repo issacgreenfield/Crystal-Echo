@@ -20,10 +20,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var button5: UIButton!
     
     //Model Objects
-    private let newGame = GameBrain.init()
+    private let gameBrain = GameBrain.init()
     private let play = MusicBrain.init()
     
-    //GameState Setting Global Variables
+    //GameState Setting Global Variables: are both of these needed?
     private var userPlayState: Bool = false
     private var waitForUser: Bool = true
     
@@ -36,18 +36,18 @@ class ViewController: UIViewController {
 
     
     
-    
     //User Interaction Functions
     @IBAction func buttonPressed(sender: UIButton)
     {
         self.view.userInteractionEnabled = false
         self.play.playShard(Int((sender.titleLabel?.text)!)!)
+        
         if (Int((sender.titleLabel?.text)!)! != self.shardPattern[self.shardPlaceCounter])
         {
             self.waitForUser = false
+            self.userPlayState = false
             self.gameOverMessage()
-        }
-        else //you played the right shard
+        }else if (Int((sender.titleLabel?.text)!)! == self.shardPattern[self.shardPlaceCounter])
         {
             shardPlaceCounter++
             if self.shardPlaceCounter == self.shardPattern.count
@@ -59,100 +59,61 @@ class ViewController: UIViewController {
             {
                 self.view.userInteractionEnabled = true
             }
+        }else
+        {
+            print("Something is wrong with the shard recogonition")
         }
     }
     
     //Automatic Functions
-    private func playButton(buttonNumber: Int)
+
+    private func startNewGame()
     {
-        self.playSound(buttonNumber)
-        self.shardPattern.append(buttonNumber)
-        self.userPlayState = true
+        self.resetGameBrainPatternSettings()
+        play.playShard(self.shardPattern[self.shardPlaceCounter])
+        self.waitForUser = true
+        self.view.userInteractionEnabled = true
+        let gameTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "runTimedCode", userInfo: nil, repeats: true)
     }
     
-    private func playSound(buttonNumber: Int)
-    {
-        let soundURL = NSBundle.mainBundle().URLForResource("\(buttonNumber)", withExtension: "wav")
-        var mySound: SystemSoundID = 0
-        AudioServicesCreateSystemSoundID(soundURL!, &mySound)
-        AudioServicesPlaySystemSound(mySound);
-        
-    }
+    
+    
 
-    func runTimedCode() {
-        if self.shardPlaceCounter == self.shardPattern.count
+
+    func runTimedCode()
+    {
+        if self.waitForUser == false && self.shardPlaceCounter < self.shardPattern.count
         {
-            self.waitForUser = true
-            self.userPlayState = true
-            self.view.userInteractionEnabled = true
-            self.shardPlaceCounter = 0
-        }else if self.shardPlaceCounter > self.shardPattern.count
-        {
-            //error handling here, Fix-it
-            print("shardPlaceCounter is out of bounds")
-            self.startMessage()
-        }
-        
-        if self.waitForUser == true
-        {
-            //do nothing
-        }else
-        {
-            if self.userPlayState == true
+            play.playShard(self.shardPattern[self.shardPlaceCounter])
+            self.shardPlaceCounter++
+            if self.shardPlaceCounter < self.shardPattern.count
             {
-                //Just listen for user interactions
+                gameBrain.addToPatern()
+            }else if self.shardPlaceCounter == self.shardPattern.count
+            {
+                self.waitForUser = true
+                self.view.userInteractionEnabled = true
             }else
             {
-                if self.shardPlaceCounter < self.shardPattern.count
-                {
-                    playSound(self.shardPattern[self.shardPlaceCounter])
-                    self.shardPlaceCounter++
-                }
-                //                 else
-                //                {
-                //                    self.shardPlaceCounter = 0
-                //                    self.playState = true
-                //                    self.view.userInteractionEnabled = true
-                //                }
+                print("your shardPlaceCounter is out of it's bounds")
             }
+            self.shardPattern = gameBrain.getDynamicPattern()
         }
     }
 
-
-    
-    //GameState Setting Functions
-    private func gamePlaysPatternSettings()
-    {
-        
-    }
-    
-    private func userPlaysBackPatternSettings()
-    {
-        
-    }
-    
-    private func startNewGameSettings()
-    {
-        
-    }
-    
-    private func endCurrentGameSettings()
-    {
-        
-    }
     
     private func resetGameBrainPatternSettings()  //to be moved to gamebrain
     {
         self.shardPattern = []
-        self.newGame.resetPattern()
-        self.shardPattern = self.newGame.getDynamicPattern()
+        self.gameBrain.resetPattern()
+        self.shardPattern = self.gameBrain.getDynamicPattern()
+        gameBrain.resetPattern()
     }
     
     
     //Game Message Functions
     private func startMessage()
     {
-        
         //handle reseting of data
         self.resetGameBrainPatternSettings()
         
@@ -161,8 +122,7 @@ class ViewController: UIViewController {
             "Crystal Echo", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "Start!", style: UIAlertActionStyle.Default,handler: {
             (action: UIAlertAction!) in
-            self.waitForUser = false
-            let gameTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "runTimedCode", userInfo: nil, repeats: true)
+            self.startNewGame()
             }
             ))
         self.presentViewController(alertController, animated: true, completion: nil)
@@ -186,7 +146,7 @@ class ViewController: UIViewController {
     //Override Functions
     override func viewDidLoad() {
         
-        //        let gameTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "runTimedCode", userInfo: nil, repeats: true)
+//                let gameTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "runTimedCode", userInfo: nil, repeats: true)
         
         self.view.userInteractionEnabled = false
         super.viewDidLoad()
@@ -205,8 +165,41 @@ class ViewController: UIViewController {
     
     
     
+//        //GameState Setting Functions
+//    private func gamePlaysPatternSettings()
+//    {
+//        
+//    }
+//    
+//    private func userPlaysBackPatternSettings()
+//    {
+//        
+//    }
+//    
+//    private func startNewGameSettings()
+//    {
+//        
+//    }
+//    
+//    private func endCurrentGameSettings()
+//    {
+//        
+//    }
     
+    //    private func playButton(buttonNumber: Int)
+//    {
+//        self.playSound(buttonNumber)
+//        self.shardPattern.append(buttonNumber)
+//        self.userPlayState = true
+//    }
     
+//    private func playSound(buttonNumber: Int)
+//    {
+//        let soundURL = NSBundle.mainBundle().URLForResource("\(buttonNumber)", withExtension: "wav")
+//        var mySound: SystemSoundID = 0
+//        AudioServicesCreateSystemSoundID(soundURL!, &mySound)
+//        AudioServicesPlaySystemSound(mySound);
+//    }
     
     //    private func setPattern(shardPattern: [Int])
 //    {
