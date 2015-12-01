@@ -24,7 +24,7 @@ class ViewController: UIViewController {
     private let play = MusicBrain.init()
     
     //GameState Setting Global Variables: are both of these needed?
-    private var userPlayState: Bool = false
+    private var waitABeat: Bool = false
     private var waitForUser: Bool = true
     
     //Temp Global Variables to be phased out (GV Bad!!)
@@ -45,14 +45,14 @@ class ViewController: UIViewController {
         if (Int((sender.titleLabel?.text)!)! != self.shardPattern[self.shardPlaceCounter])
         {
             self.waitForUser = false
-            self.userPlayState = false
+            self.waitABeat = false
             self.gameOverMessage()
         }else if (Int((sender.titleLabel?.text)!)! == self.shardPattern[self.shardPlaceCounter])
         {
             shardPlaceCounter++
             if self.shardPlaceCounter == self.shardPattern.count
             {
-                self.userPlayState = false
+                self.waitABeat = false
                 self.waitForUser = false
                 self.shardPlaceCounter = 0
             }else
@@ -76,29 +76,38 @@ class ViewController: UIViewController {
         let gameTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "runTimedCode", userInfo: nil, repeats: true)
     }
     
-    
-    
-
-
     func runTimedCode()
     {
-        if self.waitForUser == false && self.shardPlaceCounter < self.shardPattern.count
+        if self.waitABeat == true
         {
-            play.playShard(self.shardPattern[self.shardPlaceCounter])
-            self.shardPlaceCounter++
-            if self.shardPlaceCounter < self.shardPattern.count
+            self.waitABeat = false
+        }else
+        {
+            self.waitABeat = true
+            if self.waitForUser == false && self.shardPlaceCounter < self.shardPattern.count
             {
-                gameBrain.addToPatern()
-            }else if self.shardPlaceCounter == self.shardPattern.count
-            {
-                self.waitForUser = true
-                self.view.userInteractionEnabled = true
-            }else
-            {
-                print("your shardPlaceCounter is out of it's bounds")
+                play.playShard(self.shardPattern[self.shardPlaceCounter])
+                self.shardPlaceCounter++
+                if self.shardPlaceCounter < self.shardPattern.count
+                {
+                    
+                }else if self.shardPlaceCounter == self.shardPattern.count
+                {
+                    gameBrain.addToPatern()
+                    self.shardPattern = gameBrain.getDynamicPattern()
+                    play.playShard(self.shardPattern[self.shardPlaceCounter])
+                    self.shardPlaceCounter = 0
+                    self.waitForUser = true
+                    self.waitABeat = true
+                    self.view.userInteractionEnabled = true
+                }else
+                {
+                    print("your shardPlaceCounter is out of it's bounds")
+                }
             }
-            self.shardPattern = gameBrain.getDynamicPattern()
         }
+        
+        
     }
 
     
@@ -131,7 +140,7 @@ class ViewController: UIViewController {
     
     private func gameOverMessage()
     {
-        self.userPlayState = false
+        self.waitABeat = true
         let alertController = UIAlertController(title: "Darn!", message:
             "That Ain't Right", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "OK, my bad...", style: UIAlertActionStyle.Default,handler: {
