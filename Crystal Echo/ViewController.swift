@@ -32,27 +32,22 @@ class ViewController: UIViewController {
     private var shardPlaceCounter: Int = 0   //move over to GameBrain
 
     
-    
-
-    
-    
     //User Interaction Functions
     @IBAction func buttonPressed(sender: UIButton)
     {
         self.view.userInteractionEnabled = false
         self.play.playShard(Int((sender.titleLabel?.text)!)!)
+        self.waitABeat = true
         
         if (Int((sender.titleLabel?.text)!)! != self.shardPattern[self.shardPlaceCounter])
         {
             self.waitForUser = false
-            self.waitABeat = false
             self.gameOverMessage()
         }else if (Int((sender.titleLabel?.text)!)! == self.shardPattern[self.shardPlaceCounter])
         {
             shardPlaceCounter++
             if self.shardPlaceCounter == self.shardPattern.count
             {
-                self.waitABeat = false
                 self.waitForUser = false
                 self.shardPlaceCounter = 0
             }else
@@ -66,7 +61,6 @@ class ViewController: UIViewController {
     }
     
     //Automatic Functions
-
     private func startNewGame()
     {
         self.resetGameBrainPatternSettings()
@@ -81,16 +75,15 @@ class ViewController: UIViewController {
         if self.waitABeat == true
         {
             self.waitABeat = false
-        }else
+        }else if self.waitABeat == false
         {
-            self.waitABeat = true
-            if self.waitForUser == false && self.shardPlaceCounter < self.shardPattern.count
+            if self.waitForUser == false && self.shardPlaceCounter <= self.shardPattern.count
             {
-                play.playShard(self.shardPattern[self.shardPlaceCounter])
-                self.shardPlaceCounter++
+                self.waitABeat = false
                 if self.shardPlaceCounter < self.shardPattern.count
                 {
-                    
+                    play.playShard(self.shardPattern[self.shardPlaceCounter])
+                    self.shardPlaceCounter++
                 }else if self.shardPlaceCounter == self.shardPattern.count
                 {
                     gameBrain.addToPatern()
@@ -106,9 +99,18 @@ class ViewController: UIViewController {
                 }
             }
         }
-        
-        
     }
+    
+//    func toggleWaitABeat()
+//    {
+////        if self.waitABeat == false
+////        {
+////            self.waitABeat = true
+////        }else
+////        {
+////            self.waitABeat = false
+////        }
+//    }
 
     
     private func resetGameBrainPatternSettings()  //to be moved to gamebrain
@@ -154,8 +156,8 @@ class ViewController: UIViewController {
     
     //Override Functions
     override func viewDidLoad() {
-        
-//                let gameTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "runTimedCode", userInfo: nil, repeats: true)
+//        
+//                let beatTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "toggleWaitABeat", userInfo: nil, repeats: true)
         
         self.view.userInteractionEnabled = false
         super.viewDidLoad()
