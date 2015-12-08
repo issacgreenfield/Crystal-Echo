@@ -26,6 +26,7 @@ class ViewController: UIViewController {
     //GameState Setting Global Variables: are both of these needed?
     private var waitABeat: Bool = false
     private var waitForUser: Bool = true
+    private var pauseTimer: Bool = true
     
     //Temp Global Variables to be phased out (GV Bad!!)
     private var shardPattern: [Int] = []
@@ -67,67 +68,102 @@ class ViewController: UIViewController {
         play.playShard(self.shardPattern[self.shardPlaceCounter])
         self.waitForUser = true
         self.view.userInteractionEnabled = true
+        self.pauseTimer = false
         let gameTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "runTimedCode", userInfo: nil, repeats: true)
     }
     
     func runTimedCode()
     {
-        if self.waitABeat == true
+        if self.pauseTimer == true
         {
-            self.waitABeat = false
-        }else if self.waitABeat == false
+            
+        }else if self.pauseTimer == false
         {
-            if self.waitForUser == false && self.shardPlaceCounter <= self.shardPattern.count
+            if self.waitABeat == true
             {
                 self.waitABeat = false
-                if self.shardPlaceCounter < self.shardPattern.count
+            }else if self.waitABeat == false
+            {
+                if self.waitForUser == false && self.shardPlaceCounter <= self.shardPattern.count
                 {
-                    play.playShard(self.shardPattern[self.shardPlaceCounter])
-                    self.shardPlaceCounter++
-                }else if self.shardPlaceCounter == self.shardPattern.count
-                {
-                    gameBrain.addToPatern()
-                    self.shardPattern = gameBrain.getDynamicPattern()
-                    play.playShard(self.shardPattern[self.shardPlaceCounter])
-                    self.shardPlaceCounter = 0
-                    self.waitForUser = true
-                    self.waitABeat = true
-                    self.view.userInteractionEnabled = true
-                }else
-                {
-                    print("your shardPlaceCounter is out of it's bounds")
+                    self.waitABeat = false
+                    if self.shardPlaceCounter < self.shardPattern.count
+                    {
+//                        self.toggleShardStateOff(self.shardPattern[self.shardPlaceCounter - 1])  //this is a problem
+                        play.playShard(self.shardPattern[self.shardPlaceCounter])
+//                        self.toggleShardStateOn(self.shardPattern[self.shardPlaceCounter])
+                        self.shardPlaceCounter++
+                    }else if self.shardPlaceCounter == self.shardPattern.count
+                    {
+                        gameBrain.addToPatern()
+                        self.shardPattern = gameBrain.getDynamicPattern()
+                        play.playShard(self.shardPattern[self.shardPlaceCounter])
+                        self.shardPlaceCounter = 0
+                        self.waitForUser = true
+                        self.waitABeat = true
+                        self.view.userInteractionEnabled = true
+                    }else
+                    {
+                        print("your shardPlaceCounter is out of it's bounds")
+                    }
                 }
             }
+
         }
     }
     
-//    func toggleWaitABeat()
-//    {
-////        if self.waitABeat == false
-////        {
-////            self.waitABeat = true
-////        }else
-////        {
-////            self.waitABeat = false
-////        }
-//    }
-
+    private func toggleShardStateOn(touchedShard: Int)
+    {
+        switch touchedShard
+        {
+        case 1:
+            button1.highlighted = true
+        case 2:
+            button2.highlighted = true
+        case 3:
+            button2.highlighted = true
+        case 4:
+            button2.highlighted = true
+        case 5:
+            button2.highlighted = true
+        default:
+            print("no button was toggled")
+        }
+    }
     
+    private func toggleShardStateOff(touchedShard: Int)
+    {
+        switch touchedShard
+        {
+        case 1:
+            button1.highlighted = false
+        case 2:
+            button2.highlighted = false
+        case 3:
+            button2.highlighted = false
+        case 4:
+            button2.highlighted = false
+        case 5:
+            button2.highlighted = false
+        default:
+            print("no button was toggled")
+        }
+    }
+
     private func resetGameBrainPatternSettings()  //to be moved to gamebrain
     {
+        self.pauseTimer = true
+        self.waitABeat = true
+        self.shardPlaceCounter = 0
         self.shardPattern = []
         self.gameBrain.resetPattern()
         self.shardPattern = self.gameBrain.getDynamicPattern()
         gameBrain.resetPattern()
     }
     
-    
     //Game Message Functions
     private func startMessage()
     {
-        //handle reseting of data
-        self.resetGameBrainPatternSettings()
-        
         
         let alertController = UIAlertController(title: "Welcome To", message:
             "Crystal Echo", preferredStyle: UIAlertControllerStyle.Alert)
@@ -142,7 +178,7 @@ class ViewController: UIViewController {
     
     private func gameOverMessage()
     {
-        self.waitABeat = true
+        self.resetGameBrainPatternSettings()
         let alertController = UIAlertController(title: "Darn!", message:
             "That Ain't Right", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "OK, my bad...", style: UIAlertActionStyle.Default,handler: {
@@ -152,12 +188,9 @@ class ViewController: UIViewController {
             ))
         self.presentViewController(alertController, animated: true, completion: nil)
     }
-
     
     //Override Functions
     override func viewDidLoad() {
-//        
-//                let beatTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "toggleWaitABeat", userInfo: nil, repeats: true)
         
         self.view.userInteractionEnabled = false
         super.viewDidLoad()
@@ -171,50 +204,4 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    
-    
-    
-    
-//        //GameState Setting Functions
-//    private func gamePlaysPatternSettings()
-//    {
-//        
-//    }
-//    
-//    private func userPlaysBackPatternSettings()
-//    {
-//        
-//    }
-//    
-//    private func startNewGameSettings()
-//    {
-//        
-//    }
-//    
-//    private func endCurrentGameSettings()
-//    {
-//        
-//    }
-    
-    //    private func playButton(buttonNumber: Int)
-//    {
-//        self.playSound(buttonNumber)
-//        self.shardPattern.append(buttonNumber)
-//        self.userPlayState = true
-//    }
-    
-//    private func playSound(buttonNumber: Int)
-//    {
-//        let soundURL = NSBundle.mainBundle().URLForResource("\(buttonNumber)", withExtension: "wav")
-//        var mySound: SystemSoundID = 0
-//        AudioServicesCreateSystemSoundID(soundURL!, &mySound)
-//        AudioServicesPlaySystemSound(mySound);
-//    }
-    
-    //    private func setPattern(shardPattern: [Int])
-//    {
-//        self.shardPattern = shardPattern
-//    }
 }
-
