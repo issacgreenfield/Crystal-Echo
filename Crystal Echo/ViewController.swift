@@ -84,7 +84,26 @@ class ViewController: UIViewController {
         {
             if (gameBrain.getShardPlaceCounter() <= gameBrain.getShardPattern().count)
             {
-                self.playShardTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "playShardTimerFunction", userInfo: nil, repeats: true)
+                self.shardToPlay = gameBrain.getShardPattern()[gameBrain.getShardPlaceCounter()]
+                switch shardToPlay
+                {
+                case 1:
+                    button1.highlighted = true
+                case 2:
+                    button2.highlighted = true
+                case 3:
+                    button3.highlighted = true
+                case 4:
+                    button4.highlighted = true
+                case 5:
+                    button5.highlighted = true
+                default:
+                    print("no button was toggled")
+                }
+                
+                musicBrain.playShard(gameBrain.getShardPattern()[gameBrain.getShardPlaceCounter()])
+                
+                self.playShardTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "playShardTimerFunction", userInfo: nil, repeats: false)
                 gameBrain.addToShardPlaceCounter()
                 if (gameBrain.getShardPlaceCounter() == gameBrain.getShardPattern().count)
                 {
@@ -112,55 +131,22 @@ class ViewController: UIViewController {
         playShardTimercounter++
         print("playShardTimercounter: ", playShardTimercounter)
         
-        self.shardToPlay = gameBrain.getShardPattern()[gameBrain.getShardPlaceCounter()]
+        switch shardToPlay
+        {
+        case 1:
+            button1.highlighted = false
+        case 2:
+            button2.highlighted = false
+        case 3:
+            button3.highlighted = false
+        case 4:
+            button4.highlighted = false
+        case 5:
+            button5.highlighted = false
+        default:
+            print("no button was toggled")
+        }
         
-            if(self.endShardTimerBool == false)
-            {
-                endShardTimerBool = true
-                switch shardToPlay
-                {
-                case 1:
-                    button1.highlighted = true
-                case 2:
-                    button2.highlighted = true
-                case 3:
-                    button3.highlighted = true
-                case 4:
-                    button4.highlighted = true
-                case 5:
-                    button5.highlighted = true
-                default:
-                    print("no button was toggled")
-                }
-                musicBrain.playShard(gameBrain.getShardPattern()[gameBrain.getShardPlaceCounter()])
-            }
-            else
-            {
-//                gameBrain.addToShardPlaceCounter()
-                switch shardToPlay
-                {
-                case 1:
-                    button1.highlighted = false
-                case 2:
-                    button2.highlighted = false
-                case 3:
-                    button3.highlighted = false
-                case 4:
-                    button4.highlighted = false
-                case 5:
-                    button5.highlighted = false
-                default:
-                    print("no button was toggled")
-                }
-//                if (gameBrain.getShardPlaceCounter() == gameBrain.getShardPattern().count)
-//                {
-//                    self.view.userInteractionEnabled = true
-//                    gameBrain.resetShardPlaceCounter()
-//                    self.playShardPatternTimer.invalidate()
-//                }
-                self.endShardTimerBool = false
-                self.playShardTimer.invalidate()
-            }
     }
 
     

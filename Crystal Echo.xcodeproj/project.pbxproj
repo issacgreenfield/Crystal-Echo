@@ -597,6 +597,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "issacgreenfield.Crystal-EchoUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				RESOURCES_TARGETED_DEVICE_FAMILY = "";
 				TEST_TARGET_NAME = "Crystal Echo";
 				USES_XCTRUNNER = YES;
 			};
