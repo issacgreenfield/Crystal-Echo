@@ -23,19 +23,9 @@ class ViewController: UIViewController {
     private let gameBrain = GameBrain.init()
     private let musicBrain = MusicBrain.init()
     
-    //GameState Setting Global Variables
     private var waitABeat: Bool = false
-//    private var waitForUser: Bool = true
-//    private var pauseTimer: Bool = false
     private var endShardTimerBool: Bool = false
-//    private var endShardPatternTimerBool: Bool = false
     private var shardToPlay = 3
-    
-    //Temp Global Variables to be phased out (GV Bad!!)
-//    private var shardPattern: [Int] = []
-//    private var shardPlaceCounter: Int = 0   //move over to GameBrain
-    var playShardPatternTimercounter = 0
-    var playShardTimercounter = 0
     
     //Global Timers
     var playShardTimer = NSTimer()
@@ -73,9 +63,6 @@ class ViewController: UIViewController {
     
     func playShardPatternTimerFunction()
     {
-        playShardPatternTimercounter++
-        print("playShardPatternTimercounter: ", playShardPatternTimercounter)
-        
         if (self.waitABeat == true)
         {
             self.waitABeat = false
@@ -112,10 +99,6 @@ class ViewController: UIViewController {
                     self.waitABeat = true
                     self.playShardPatternTimer.invalidate()
                 }
-                //            else if (gameBrain.getShardPlaceCounter() < gameBrain.getShardPattern().count)
-                //            {
-                //                self.view.userInteractionEnabled = true
-                //            }
             }
             else
             {
@@ -128,9 +111,6 @@ class ViewController: UIViewController {
     
     func playShardTimerFunction()
     {
-        playShardTimercounter++
-        print("playShardTimercounter: ", playShardTimercounter)
-        
         switch shardToPlay
         {
         case 1:
@@ -202,139 +182,3 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 }
-
-
-
-//    func shardSelectTimer()
-//    {
-//        var touchedShard: Int = shardPattern[shardPlaceCounter]
-//        if(endShardTimerBool == true)
-//        {
-//            endShardTimerBool = false
-//            switch touchedShard
-//            {
-//            case 1:
-//                button1.highlighted = true
-//            case 2:
-//                button2.highlighted = true
-//            case 3:
-//                button2.highlighted = true
-//            case 4:
-//                button2.highlighted = true
-//            case 5:
-//                button2.highlighted = true
-//            default:
-//                print("no button was toggled")
-//            }
-//        }
-//        else
-//        {
-//            switch touchedShard
-//            {
-//            case 1:
-//                button1.highlighted = false
-//            case 2:
-//                button2.highlighted = false
-//            case 3:
-//                button2.highlighted = false
-//            case 4:
-//                button2.highlighted = false
-//            case 5:
-//                button2.highlighted = false
-//            default:
-//                print("no button was toggled")
-//            }
-//            shardTimer.invalidate()
-//        }
-//    }
-//
-//    func runTimedCode()
-//    {
-//        if self.pauseTimer == true
-//        {
-//
-//        }else if self.pauseTimer == false
-//        {
-//            if self.waitABeat == true
-//            {
-//                self.waitABeat = false
-//            }else if self.waitABeat == false
-//            {
-//                if self.waitForUser == false && self.shardPlaceCounter <= self.shardPattern.count
-//                {
-//                    self.waitABeat = false
-//                    if self.shardPlaceCounter < self.shardPattern.count
-//                    {
-//                        shardTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "shardSelectTimer", userInfo: nil, repeats: true)
-//
-////                        self.toggleShardStateOff(self.shardPattern[self.shardPlaceCounter - 1])  //this is a problem
-//                        play.playShard(self.shardPattern[self.shardPlaceCounter])
-////                        self.toggleShardStateOn(self.shardPattern[self.shardPlaceCounter])
-//                        self.shardPlaceCounter++
-//                    }else if self.shardPlaceCounter == self.shardPattern.count
-//                    {
-//                        gameBrain.addToPatern()
-//                        self.shardPattern = gameBrain.getDynamicPattern()
-//                        play.playShard(self.shardPattern[self.shardPlaceCounter])
-//                        self.shardPlaceCounter = 0
-//                        self.waitForUser = true
-//                        self.waitABeat = true
-//                        self.view.userInteractionEnabled = true
-//                    }else
-//                    {
-//                        print("your shardPlaceCounter is out of it's bounds")
-//                    }
-//                }
-//            }
-//
-//        }
-//    }
-//
-//    private func toggleShardStateOn(touchedShard: Int)
-//    {
-//        switch touchedShard
-//        {
-//        case 1:
-//            button1.highlighted = true
-//        case 2:
-//            button2.highlighted = true
-//        case 3:
-//            button2.highlighted = true
-//        case 4:
-//            button2.highlighted = true
-//        case 5:
-//            button2.highlighted = true
-//        default:
-//            print("no button was toggled")
-//        }
-//    }
-//
-//    private func toggleShardStateOff(touchedShard: Int)
-//    {
-//        switch touchedShard
-//        {
-//        case 1:
-//            button1.highlighted = false
-//        case 2:
-//            button2.highlighted = false
-//        case 3:
-//            button2.highlighted = false
-//        case 4:
-//            button2.highlighted = false
-//        case 5:
-//            button2.highlighted = false
-//        default:
-//            print("no button was toggled")
-//        }
-//    }
-
-//    private func resetGameBrainPatternSettings()  //to be moved to gamebrain
-//    {
-//        self.pauseTimer = true
-//        self.waitABeat = true
-//        self.shardPlaceCounter = 0
-//        self.shardPattern = []
-//        self.gameBrain.resetPattern()
-//        self.shardPattern = self.gameBrain.getDynamicPattern()
-//        gameBrain.resetPattern()
-//    }
