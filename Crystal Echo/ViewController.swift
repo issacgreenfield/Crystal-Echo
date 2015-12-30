@@ -23,7 +23,7 @@ class ViewController: UIViewController {
     private let gameBrain = GameBrain.init()
     private let musicBrain = MusicBrain.init()
     
-    private var waitABeat: Bool = false
+    private var waitABeatBool: Bool = false
     private var endShardTimerBool: Bool = false
     private var shardToPlay = 3
     
@@ -47,7 +47,7 @@ class ViewController: UIViewController {
             gameBrain.addToShardPlaceCounter()
             if gameBrain.getShardPlaceCounter() == gameBrain.getShardPattern().count
             {
-                self.waitABeat = true
+                self.waitABeatBool = true
                 gameBrain.resetShardPlaceCounter()
                 gameBrain.addToPatern()
                 self.playShardPatternTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "playShardPatternTimerFunction", userInfo: nil, repeats: true)
@@ -63,9 +63,9 @@ class ViewController: UIViewController {
     
     func playShardPatternTimerFunction()
     {
-        if (self.waitABeat == true)
+        if (self.waitABeatBool == true)
         {
-            self.waitABeat = false
+            self.waitABeatBool = false
         }
         else
         {
@@ -96,7 +96,7 @@ class ViewController: UIViewController {
                 {
                     self.view.userInteractionEnabled = true
                     gameBrain.resetShardPlaceCounter()
-                    self.waitABeat = true
+                    self.waitABeatBool = true
                     self.playShardPatternTimer.invalidate()
                 }
             }
@@ -135,7 +135,7 @@ class ViewController: UIViewController {
     private func startNewGame()
     {
         gameBrain.resetPattern()
-        self.waitABeat = true
+        self.waitABeatBool = true
         self.endShardTimerBool = false
         self.playShardPatternTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "playShardPatternTimerFunction", userInfo: nil, repeats: true)
     }
