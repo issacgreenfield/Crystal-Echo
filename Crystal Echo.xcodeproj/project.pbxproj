@@ -82,13 +82,13 @@
 		C18490E61BE3FBB6004C89AB /* 4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 4.wav; path = ../Sounds/4.wav; sourceTree = "<group>"; };
 		C18490E71BE3FBB6004C89AB /* 5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 5.wav; path = ../Sounds/5.wav; sourceTree = "<group>"; };
 		C18490E81BE3FBB6004C89AB /* 6.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 6.wav; path = "../../Crystaline Mountain/Crystaline Mountain/6.wav"; sourceTree = "<group>"; };
-		C18490E91BE3FBB6004C89AB /* 7.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 7.wav; path = "../../Crystaline Mountain/Crystaline Mountain/7.wav"; sourceTree = "<group>"; };
+		C18490E91BE3FBB6004C89AB /* 7.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 7.wav; path = ../Sounds/7.wav; sourceTree = "<group>"; };
 		C18490EA1BE3FBB6004C89AB /* 8.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 8.wav; path = "../../Crystaline Mountain/Crystaline Mountain/8.wav"; sourceTree = "<group>"; };
 		C18490EB1BE3FBB6004C89AB /* 9.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 9.wav; path = "../../Crystaline Mountain/Crystaline Mountain/9.wav"; sourceTree = "<group>"; };
-		C18490EC1BE3FBB6004C89AB /* 10.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 10.wav; path = "../../Crystaline Mountain/Crystaline Mountain/10.wav"; sourceTree = "<group>"; };
+		C18490EC1BE3FBB6004C89AB /* 10.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 10.wav; path = ../Sounds/10.wav; sourceTree = "<group>"; };
 		C18490ED1BE3FBB6004C89AB /* 11.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 11.wav; path = "../../Crystaline Mountain/Crystaline Mountain/11.wav"; sourceTree = "<group>"; };
 		C18490EE1BE3FBB6004C89AB /* 12.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 12.wav; path = "../../Crystaline Mountain/Crystaline Mountain/12.wav"; sourceTree = "<group>"; };
-		C18490EF1BE3FBB6004C89AB /* 13.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 13.wav; path = "../../Crystaline Mountain/Crystaline Mountain/13.wav"; sourceTree = "<group>"; };
+		C18490EF1BE3FBB6004C89AB /* 13.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 13.wav; path = ../Sounds/13.wav; sourceTree = "<group>"; };
 		C18490F01BE3FBB6004C89AB /* 14.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 14.wav; path = "../../Crystaline Mountain/Crystaline Mountain/14.wav"; sourceTree = "<group>"; };
 		C18490F11BE3FBB6004C89AB /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bg.png; path = ../Images/bg.png; sourceTree = "<group>"; };
 		C18490F21BE3FBB6004C89AB /* ic_launcher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_launcher.png; path = "../../Crystaline Mountain/Crystaline Mountain/ic_launcher.png"; sourceTree = "<group>"; };
