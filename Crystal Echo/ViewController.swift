@@ -18,20 +18,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var button3: UIButton!
     @IBOutlet weak var button4: UIButton!
     @IBOutlet weak var button5: UIButton!
-    
     //Model Objects
     private let gameBrain = GameBrain.init()
     private let musicBrain = MusicBrain.init()
-    
-    private var waitABeatBool: Bool = false
-    private var endShardTimerBool: Bool = false
-    private var shardToPlay = 3
-    
     //Global Timers
-    var playShardTimer = NSTimer()
     var playShardPatternTimer = NSTimer()
     
-    //User Interaction Functions
     @IBAction func buttonPressed(sender: UIButton)
     {
         self.view.userInteractionEnabled = false
@@ -47,10 +39,9 @@ class ViewController: UIViewController {
             gameBrain.addToShardPlaceCounter()
             if gameBrain.getShardPlaceCounter() == gameBrain.getShardPattern().count
             {
-                self.waitABeatBool = true
                 gameBrain.resetShardPlaceCounter()
                 gameBrain.addToPatern()
-                self.playShardPatternTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "playShardPatternTimerFunction", userInfo: nil, repeats: true)
+                self.playShardPatternTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "playShardPatternTimerFunction", userInfo: nil, repeats: true)
             }else
             {
                 self.view.userInteractionEnabled = true
@@ -63,40 +54,45 @@ class ViewController: UIViewController {
     
     func playShardPatternTimerFunction()
     {
-        if (self.waitABeatBool == true)
-        {
-            self.waitABeatBool = false
-        }
-        else
-        {
+        
             if (gameBrain.getShardPlaceCounter() <= gameBrain.getShardPattern().count)
             {
-                self.shardToPlay = gameBrain.getShardPattern()[gameBrain.getShardPlaceCounter()]
-                switch shardToPlay
+                switch gameBrain.getShardPattern()[gameBrain.getShardPlaceCounter()]
                 {
                 case 1:
                     button1.highlighted = true
+                    deselectShardAfterDelay(1.0){
+                        self.button1.highlighted = false
+                    }
                 case 2:
                     button2.highlighted = true
+                    deselectShardAfterDelay(1.0){
+                        self.button2.highlighted = false
+                    }
                 case 3:
                     button3.highlighted = true
+                    deselectShardAfterDelay(1.0){
+                        self.button3.highlighted = false
+                    }
                 case 4:
                     button4.highlighted = true
+                    deselectShardAfterDelay(1.0){
+                        self.button4.highlighted = false
+                    }
                 case 5:
                     button5.highlighted = true
+                    deselectShardAfterDelay(1.0){
+                        self.button5.highlighted = false
+                    }
                 default:
                     print("no button was toggled")
                 }
-                
                 musicBrain.playShard(gameBrain.getShardPattern()[gameBrain.getShardPlaceCounter()])
-                
-                self.playShardTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "playShardTimerFunction", userInfo: nil, repeats: false)
                 gameBrain.addToShardPlaceCounter()
                 if (gameBrain.getShardPlaceCounter() == gameBrain.getShardPattern().count)
                 {
                     self.view.userInteractionEnabled = true
                     gameBrain.resetShardPlaceCounter()
-                    self.waitABeatBool = true
                     self.playShardPatternTimer.invalidate()
                 }
             }
@@ -104,43 +100,20 @@ class ViewController: UIViewController {
             {
                 print("getShardPlaceCounter is out of bounds")
             }
-        }
-        
-        
     }
     
-    func playShardTimerFunction()
+    func deselectShardAfterDelay(delay: NSTimeInterval, block: dispatch_block_t)
     {
-        switch shardToPlay
-        {
-        case 1:
-            button1.highlighted = false
-        case 2:
-            button2.highlighted = false
-        case 3:
-            button3.highlighted = false
-        case 4:
-            button4.highlighted = false
-        case 5:
-            button5.highlighted = false
-        default:
-            print("no button was toggled")
-        }
-        
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC)))
+        dispatch_after(time, dispatch_get_main_queue(), block)
     }
-
     
-    
-    //Automatic Functions
     private func startNewGame()
     {
         gameBrain.resetPattern()
-        self.waitABeatBool = true
-        self.endShardTimerBool = false
         self.playShardPatternTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "playShardPatternTimerFunction", userInfo: nil, repeats: true)
     }
 
-    //Game Message Functions
     private func startMessage()
     {
         let alertController = UIAlertController(title: "Welcome To", message:
