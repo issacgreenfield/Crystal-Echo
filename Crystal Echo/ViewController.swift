@@ -41,7 +41,7 @@ class ViewController: UIViewController {
             {
                 gameBrain.resetShardPlaceCounter()
                 gameBrain.addToPatern()
-                self.playShardPatternTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "playShardPatternTimerFunction", userInfo: nil, repeats: true)
+                self.playShardPatternTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "playShardPatternTimerFunction", userInfo: nil, repeats: true)
             }else
             {
                 self.view.userInteractionEnabled = true
