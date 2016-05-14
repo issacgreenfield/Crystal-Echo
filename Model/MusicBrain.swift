@@ -9,9 +9,9 @@
 import Foundation
 import AVFoundation
 
+/// A sound manager for wav files
 public class MusicBrain
 {
-
     private var mySound: SystemSoundID
     
     init()
@@ -21,21 +21,22 @@ public class MusicBrain
     
     public func playShard(shardNumber: Int)
     {
-        print("\(shardNumber)")
-        let soundURL = NSBundle.mainBundle().URLForResource("\(shardNumber)", withExtension: "wav")
-        AudioServicesCreateSystemSoundID(soundURL!, &mySound)
-        AudioServicesPlaySystemSound(mySound);
+        if let soundURL = NSBundle.mainBundle().URLForResource("\(shardNumber)", withExtension: "wav") {
+            var mySound: SystemSoundID = 0
+            AudioServicesCreateSystemSoundID(soundURL, &mySound)
+            // Play
+            AudioServicesPlaySystemSound(mySound);
+        }
     }
     
     public func playBackground(music: String)
     {
-        print("\(music)")
-        let soundURL = NSBundle.mainBundle().URLForResource("\(music)", withExtension: "wav")
-        AudioServicesCreateSystemSoundID(soundURL!, &mySound)
-        AudioServicesPlaySystemSound(mySound);
+        if let soundURL = NSBundle.mainBundle().URLForResource("\(music)", withExtension: "wav") {
+            var mySound: SystemSoundID = 0
+            AudioServicesCreateSystemSoundID(soundURL, &mySound)
+            // Play
+            AudioServicesPlaySystemSound(mySound);
+        }
     }
-    
-    
-
 
 }

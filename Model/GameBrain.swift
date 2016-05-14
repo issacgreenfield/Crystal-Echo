@@ -9,6 +9,7 @@
 import Foundation
 import AVFoundation
 
+/// A random pattern generator that checks if user has matched the pattern
 class GameBrain
 {
     private var shardPattern: [Int]

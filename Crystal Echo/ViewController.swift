@@ -12,17 +12,18 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
-    //UI Elements
     @IBOutlet weak var button1: UIButton!
     @IBOutlet weak var button2: UIButton!
     @IBOutlet weak var button3: UIButton!
     @IBOutlet weak var button4: UIButton!
     @IBOutlet weak var button5: UIButton!
-    //Model Objects
+    
     private let gameBrain = GameBrain.init()
     private let musicBrain = MusicBrain.init()
-    //Global Timers
     var playShardPatternTimer = NSTimer()
+    private let musicBrain2 = MusicBrain.init()
+    
+    private var timerDelay: Double = 0.0
     
     @IBAction func buttonPressed(sender: UIButton)
     {
@@ -41,7 +42,7 @@ class ViewController: UIViewController {
             {
                 gameBrain.resetShardPlaceCounter()
                 gameBrain.addToPatern()
-                self.playShardPatternTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "playShardPatternTimerFunction", userInfo: nil, repeats: true)
+                self.playShardPatternTimer = NSTimer.scheduledTimerWithTimeInterval((1.0 - timerDelay), target: self, selector: "playShardPatternTimerFunction", userInfo: nil, repeats: true)
             }else
             {
                 self.view.userInteractionEnabled = true
@@ -57,6 +58,7 @@ class ViewController: UIViewController {
         
             if (gameBrain.getShardPlaceCounter() <= gameBrain.getShardPattern().count)
             {
+                timerDelay += 0.01
                 switch gameBrain.getShardPattern()[gameBrain.getShardPlaceCounter()]
                 {
                 case 1:
@@ -110,6 +112,7 @@ class ViewController: UIViewController {
     
     private func startNewGame()
     {
+        timerDelay = 0.0
         gameBrain.resetPattern()
         self.playShardPatternTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "playShardPatternTimerFunction", userInfo: nil, repeats: true)
     }
